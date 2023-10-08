@@ -19,22 +19,16 @@ import {
   MenuList,
   Image,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import Link from "next/link";
+import { BiShow } from "react-icons/bi";
+
 const LinkItems = [
-  { name: "Home", icon: FiHome, href: "/" },
-  { name: "Add Details", icon: AiOutlineUserAdd, href: "/addDetails" },
-  //   { name: "Explore", icon: FiCompass },
-  //   { name: "Favourites", icon: FiStar },
+  { name: "All Students", icon: BiShow, href: "/" },
+  { name: "Add Student", icon: AiOutlineUserAdd, href: "/addStudents" },
+  { name: "All Courses", icon: BiShow, href: "/allCourses" },
+  { name: "Add Course", icon: AiOutlineUserAdd, href: "/addCourses" },
   //   { name: "Settings", icon: FiSettings },
 ];
 

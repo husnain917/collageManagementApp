@@ -25,9 +25,8 @@ export default function UseAddDetails() {
   const [lastNameError, setLastNameError] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [accountType, setAccountType] = useState("User");
+  const [phoneNum, setPhoneNum] = useState("");
+  const [phoneNumError, setPhoneNumError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [updateId, setUpdateId] = useState("");
   const [flag, setFlag] = useState(false);
@@ -87,32 +86,23 @@ export default function UseAddDetails() {
     }
   };
 
-  //   validate password
-  const validatePassword = (e) => {
-    setPassword(e.target.value);
+  // validate phone number
+  const validatePhoneNumber = (e) => {
+    setPhoneNum(e.target.value);
     if (e.target.value === "") {
-      setPasswordError(true);
+      setPhoneNumError(true);
     } else {
-      let checkPassword = String(e.target.value).match(
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
-      );
-      if (!checkPassword) {
-        setPasswordError(true);
-      } else if (e.target.value.length < 8) {
-        setPasswordError(true);
-      } else {
-        setPasswordError(false);
-      }
+      setPhoneNumError(false);
     }
   };
 
   // add details handler
   const addDetailsHandler = () => {
-    if (!firstName && !lastName && !email && !password) {
+    if (!firstName && !lastName && !email && !phoneNum) {
       setFirstNameError(true);
       setLastNameError(true);
       setEmailError(true);
-      setPasswordError(true);
+      setPhoneNumError(true);
       return;
     } else if (!firstName) {
       setFirstNameError(true);
@@ -123,32 +113,31 @@ export default function UseAddDetails() {
     } else if (!email) {
       setEmailError(true);
       return;
-    } else if (!password) {
-      setPasswordError(true);
+    } else if (!phoneNum) {
+      setPhoneNumError(true);
       return;
     } else {
       if (
         firstName &&
         lastName &&
         email &&
-        password &&
+        phoneNum &&
         !firstNameError &&
         !lastNameError &&
         !emailError &&
-        !passwordError
+        !phoneNumError
       ) {
         let detailsData = {
           firstName: firstName,
           lastName: lastName,
           email: email,
-          password: password,
-          accountType: accountType,
+          phoneNum: phoneNum,
         };
         dispatch(addDetailes(detailsData, setIsLoading));
         setFirstName("");
         setLastName("");
         setEmail("");
-        setPassword("");
+        setPhoneNum("");
       }
     }
   };
@@ -158,19 +147,18 @@ export default function UseAddDetails() {
     setFirstName(paramsData?.firstName);
     setLastName(paramsData?.lastName);
     setEmail(paramsData?.email);
-    setPassword(paramsData?.password);
-    setAccountType(paramsData?.accountType);
+    setPhoneNum(paramsData?.phoneNum);
     setUpdateId(paramsData?._id);
     setFlag(true);
   };
 
   // update details handler
   const updateDetailsHandler = () => {
-    if (!firstName && !lastName && !email && !password) {
+    if (!firstName && !lastName && !email && !phoneNum) {
       setFirstNameError(true);
       setLastNameError(true);
       setEmailError(true);
-      setPasswordError(true);
+      setPhoneNumError(true);
       return;
     } else if (!firstName) {
       setFirstNameError(true);
@@ -181,33 +169,32 @@ export default function UseAddDetails() {
     } else if (!email) {
       setEmailError(true);
       return;
-    } else if (!password) {
-      setPasswordError(true);
+    } else if (!phoneNum) {
+      setPhoneNumError(true);
       return;
     } else {
       if (
         firstName &&
         lastName &&
         email &&
-        password &&
+        phoneNum &&
         !firstNameError &&
         !lastNameError &&
         !emailError &&
-        !passwordError
+        !phoneNumError
       ) {
         let detailsData = {
           firstName: firstName,
           lastName: lastName,
           email: email,
-          password: password,
-          accountType: accountType,
+          phoneNum: phoneNum,
           _id: updateId,
         };
         dispatch(updateDetails(detailsData, setIsLoading));
         setFirstName("");
         setLastName("");
         setEmail("");
-        setPassword("");
+        setPhoneNum("");
         setFlag(false);
       }
     }
@@ -222,14 +209,13 @@ export default function UseAddDetails() {
     email,
     validateEmail,
     emailError,
-    password,
-    validatePassword,
-    passwordError,
-    accountType,
-    setAccountType,
     addDetailsHandler,
     isLoading,
     flag,
     updateDetailsHandler,
+    validatePhoneNumber,
+    phoneNum,
+    phoneNumError,
+    setPhoneNum,
   };
 }

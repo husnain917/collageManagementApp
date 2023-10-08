@@ -15,10 +15,10 @@ import {
 import { HashLoader } from "react-spinners";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import UseShowDetails from "@/src/customHook/useShowDetails";
+import UseShowCourses from "@/src/customHook/UseShowCourses";
 
-export default function index() {
-  const { storeData, isLoading, deleteDetailsHandler } = UseShowDetails();
+export default function showCourses() {
+  const { storeData, isLoading, deleteDetailsHandler } = UseShowCourses();
 
   if (isLoading) {
     return (
@@ -42,18 +42,16 @@ export default function index() {
         fontWeight={"bold"}
         textAlign={"center"}
       >
-        All Students
+        All Courses
       </Text>
       <TableContainer boxShadow="lg" rounded="md" bg="white" mt={5}>
         <Table variant="simple">
           <TableCaption>All right reserved &copy; 2023.</TableCaption>
           <Thead>
             <Tr>
-              <Th>Student ID</Th>
-              <Th>First name</Th>
-              <Th>Last name</Th>
-              <Th>Email</Th>
-              <Th>Phone number</Th>
+              <Th>Course name</Th>
+              <Th>Course Code</Th>
+              <Th>Description</Th>
               <Th>Delete</Th>
               <Th>Update</Th>
             </Tr>
@@ -61,11 +59,9 @@ export default function index() {
           <Tbody>
             {storeData?.map((item, index) => (
               <Tr key={index}>
-                <Td>{item?._id}</Td>
-                <Td>{item?.firstName}</Td>
-                <Td>{item?.lastName}</Td>
-                <Td>{item?.email}</Td>
-                <Td>{item?.phoneNum}</Td>
+                <Td>{item?.courseName}</Td>
+                <Td>{item?.courseCode}</Td>
+                <Td>{item?.description}</Td>
                 <Td>
                   <IconButton
                     size="lg"
@@ -78,8 +74,8 @@ export default function index() {
                 <Td>
                   <Link
                     href={{
-                      pathname: "/addStudents",
-                      query: { userData: JSON?.stringify(item) },
+                      pathname: "/addCourses",
+                      query: { courseData: JSON?.stringify(item) },
                     }}
                   >
                     <IconButton

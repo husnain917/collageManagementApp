@@ -4,15 +4,12 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
-  InputRightElement,
-  Select,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import UseAddDetails from "../src/customHook/UseAddDetails";
-import { EditIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import { HashLoader } from "react-spinners";
 
 export default function addDetails() {
@@ -26,18 +23,14 @@ export default function addDetails() {
     email,
     emailError,
     validateEmail,
-    password,
-    passwordError,
-    validatePassword,
-    accountType,
-    setAccountType,
     addDetailsHandler,
     isLoading,
     flag,
     updateDetailsHandler,
+    phoneNum,
+    phoneNumError,
+    validatePhoneNumber,
   } = UseAddDetails();
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
 
   if (isLoading) {
     return (
@@ -61,7 +54,7 @@ export default function addDetails() {
         fontWeight={"bold"}
         textAlign={"center"}
       >
-        Add Details
+        Add Student
       </Text>
       <FormControl isRequired mb={4} isInvalid={firstNameError}>
         <FormLabel>First name</FormLabel>
@@ -83,33 +76,13 @@ export default function addDetails() {
         <FormLabel>Email</FormLabel>
         <Input placeholder="Email" value={email} onChange={validateEmail} />
       </FormControl>
-      <FormControl isRequired mb={4} isInvalid={passwordError}>
-        <FormLabel>Password</FormLabel>
-        <InputGroup>
-          <Input
-            pr="4rem"
-            type={show ? "text" : "password"}
-            placeholder="Enter password"
-            isInvalid={passwordError}
-            value={password}
-            onChange={validatePassword}
-          />
-          <InputRightElement height={"2.5rem"} mr={"4px"}>
-            <Button size="sm" onClick={handleClick}>
-              {show ? <ViewIcon /> : <ViewOffIcon />}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </FormControl>
-      <FormControl mb={6}>
-        <FormLabel>Account Type</FormLabel>
-        <Select
-          onChange={(e) => setAccountType(e.target.value)}
-          value={accountType}
-        >
-          <option value={"User"}>User</option>
-          <option value={"Employ"}>Employ</option>
-        </Select>
+      <FormControl isRequired mb={4} isInvalid={phoneNumError}>
+        <FormLabel>Phone number</FormLabel>
+        <Input
+          placeholder="Phone number"
+          value={phoneNum}
+          onChange={validatePhoneNumber}
+        />
       </FormControl>
       {flag ? (
         <Button colorScheme="blue" onClick={updateDetailsHandler}>
