@@ -7,6 +7,10 @@ import {
   SHOW_COURSE_DETAILS,
   DELETE_COURSE_DETAILS,
   UPDATE_COURSE_DETAILS,
+  ADD_ATTENDANCE_DETAILS,
+  SHOW_ATTENDANCE_DETAILS,
+  DELETE_ATTENDANCE_DETAILS,
+  UPDATE_ATTENDANCE_DETAILS,
 } from "../types/ActionsTypes";
 import {
   addDoc,
@@ -59,6 +63,27 @@ export const addCourseDetailes = (data, setIsLoading) => async (dispatch) => {
   }
 };
 
+// add attendance action
+export const addAttendanceDetailes =
+  (data, setIsLoading) => async (dispatch) => {
+    try {
+      setIsLoading(true);
+      let response = await addDoc(collection(db, "attendanceDetails"), data);
+      // if response are successfully then data save in redux
+      if (response?.id) {
+        dispatch({
+          type: ADD_ATTENDANCE_DETAILS,
+          payload: { _id: response?.id, ...data },
+        });
+        toast("Details added successfully!");
+      }
+    } catch (error) {
+      console.log(error, "error in response add details");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 // show details action
 export const showDetails = (setIsLoading) => async (dispatch) => {
   try {
@@ -105,6 +130,29 @@ export const showCourseDetails = (setIsLoading) => async (dispatch) => {
   }
 };
 
+// show attendance details action
+export const showAttendanceDetails = (setIsLoading) => async (dispatch) => {
+  try {
+    setIsLoading(true);
+    const response = await getDocs(collection(db, "attendanceDetails"));
+    const fetchedData = response?.docs?.map((doc) => ({
+      _id: doc?.id,
+      ...doc?.data(),
+    }));
+    // if response are successfully then data save in redux
+    if (fetchedData) {
+      dispatch({
+        type: SHOW_ATTENDANCE_DETAILS,
+        payload: fetchedData,
+      });
+    }
+  } catch (error) {
+    console.log(error, "error in response show details");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 // delete detail action
 export const deleteDetail = (data, setIsLoading) => async (dispatch) => {
   try {
@@ -139,6 +187,24 @@ export const deleteCourseDetail = (data, setIsLoading) => async (dispatch) => {
   }
 };
 
+// delete attendance detail action
+export const deleteAttendanceDetail =
+  (data, setIsLoading) => async (dispatch) => {
+    try {
+      setIsLoading(true);
+      await deleteDoc(doc(db, "attendanceDetails", data));
+      dispatch({
+        type: DELETE_ATTENDANCE_DETAILS,
+        payload: data,
+      });
+      toast("Details delete successfully!");
+    } catch (error) {
+      console.log(error, "error in response delete details");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 // update details handler
 export const updateDetails = (data, setIsLoading) => async (dispatch) => {
   try {
@@ -172,3 +238,21 @@ export const updateCourseDetails = (data, setIsLoading) => async (dispatch) => {
     setIsLoading(false);
   }
 };
+
+// update attendance details handler
+export const updateAttendanceDetails =
+  (data, setIsLoading) => async (dispatch) => {
+    try {
+      setIsLoading(true);
+      await updateDoc(doc(db, "attendanceDetails", data?._id), data);
+      dispatch({
+        type: UPDATE_ATTENDANCE_DETAILS,
+        payload: data,
+      });
+      toast("Details update successfully!");
+    } catch (error) {
+      console.log(error, "error in response update details");
+    } finally {
+      setIsLoading(false);
+    }
+  };

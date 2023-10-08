@@ -7,12 +7,17 @@ import {
   SHOW_COURSE_DETAILS,
   DELETE_COURSE_DETAILS,
   UPDATE_COURSE_DETAILS,
+  ADD_ATTENDANCE_DETAILS,
+  SHOW_ATTENDANCE_DETAILS,
+  DELETE_ATTENDANCE_DETAILS,
+  UPDATE_ATTENDANCE_DETAILS,
 } from "../types/ActionsTypes";
 
 // initial state
 const initialState = {
   isAllDetails: [],
   isAllCoursesDetails: [],
+  isAllAttendanceDetails: [],
 };
 
 export default function Reducers(state = initialState, action) {
@@ -24,12 +29,24 @@ export default function Reducers(state = initialState, action) {
         ...state,
         isAllDetails: addData,
       };
+
     // add courses details
     case ADD_COURSE_DETAILS:
       let addCourseData = [...state?.isAllCoursesDetails, action?.payload];
       return {
         ...state,
         isAllCoursesDetails: addCourseData,
+      };
+
+    // add attendance details
+    case ADD_ATTENDANCE_DETAILS:
+      let addAttendanceData = [
+        ...state?.isAllAttendanceDetails,
+        action?.payload,
+      ];
+      return {
+        ...state,
+        isAllAttendanceDetails: addAttendanceData,
       };
 
     // show details
@@ -44,6 +61,13 @@ export default function Reducers(state = initialState, action) {
       return {
         ...state,
         isAllCoursesDetails: action?.payload,
+      };
+
+    // show attendance details
+    case SHOW_ATTENDANCE_DETAILS:
+      return {
+        ...state,
+        isAllAttendanceDetails: action?.payload,
       };
 
     // delete details
@@ -64,6 +88,16 @@ export default function Reducers(state = initialState, action) {
       return {
         ...state,
         isAllCoursesDetails: delCourseData,
+      };
+
+    // delete attendance details
+    case DELETE_ATTENDANCE_DETAILS:
+      let delAttendanceData = state?.isAllAttendanceDetails?.filter(
+        (item) => item?._id !== action?.payload
+      );
+      return {
+        ...state,
+        isAllAttendanceDetails: delAttendanceData,
       };
 
     // update details
@@ -92,6 +126,20 @@ export default function Reducers(state = initialState, action) {
       return {
         ...state,
         isAllCoursesDetails: updateCourseData,
+      };
+
+    // update attendance details
+    case UPDATE_ATTENDANCE_DETAILS:
+      let updateAttendanceData = state?.isAllAttendanceDetails?.map((item) => {
+        if (item?._id === action?.payload?._id) {
+          return action?.payload;
+        } else {
+          return item;
+        }
+      });
+      return {
+        ...state,
+        isAllAttendanceDetails: updateAttendanceData,
       };
 
     default:

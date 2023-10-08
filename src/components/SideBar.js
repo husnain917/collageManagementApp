@@ -19,17 +19,19 @@ import {
   MenuList,
   Image,
 } from "@chakra-ui/react";
-import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiBell, FiChevronDown, FiHome } from "react-icons/fi";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import Link from "next/link";
 import { BiShow } from "react-icons/bi";
 
 const LinkItems = [
-  { name: "All Students", icon: BiShow, href: "/" },
+  { name: "Home", icon: FiHome, href: "/" },
+  { name: "All Students", icon: BiShow, href: "/allStudents" },
   { name: "Add Student", icon: AiOutlineUserAdd, href: "/addStudents" },
   { name: "All Courses", icon: BiShow, href: "/allCourses" },
   { name: "Add Course", icon: AiOutlineUserAdd, href: "/addCourses" },
-  //   { name: "Settings", icon: FiSettings },
+  { name: "Record Attendance", icon: BiShow, href: "/recordAttendance" },
+  { name: "Add Attendance", icon: AiOutlineUserAdd, href: "/addAttendance" },
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {
