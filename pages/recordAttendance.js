@@ -15,7 +15,7 @@ import {
 import { HashLoader } from "react-spinners";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import UseShowAttendance from "@/src/customHook/UseShowAttendance";
+import UseShowAttendance from "../src/customHook/UseShowAttendance";
 
 export default function recordAttendance() {
   const { storeData, isLoading, deleteDetailsHandler } = UseShowAttendance();

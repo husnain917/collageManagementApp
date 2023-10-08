@@ -15,7 +15,7 @@ import {
 import { HashLoader } from "react-spinners";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import UseShowDetails from "@/src/customHook/UseShowDetails";
+import UseShowDetails from "../src/customHook/UseShowDetails";
 
 export default function allStudents() {
   const { storeData, isLoading, deleteDetailsHandler } = UseShowDetails();
